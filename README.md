@@ -59,6 +59,6 @@ Intento = `4720` → Famas: 1 (el `7` no está en su sitio), Puntos: 2 (`4` y `2
 
 ---
 
-## 👥 Autoría
+## 👥 Autor
 
 - Thomas Serna Saldarriaga
