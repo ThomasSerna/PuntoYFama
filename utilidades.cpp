@@ -32,7 +32,7 @@ array<int, 4> utilidades::generarNumero() {
 }
 
 // Convertir un número entrado por el usuario (integer) en un arreglo usando sus cifras
-array<int, 4> utilidades::obtenerNumero(int numeroUsuario) {
+array<int, 4> utilidades::obtenerArreglo(int numeroUsuario) {
     array<int, 4> nUsuario = {0,0,0,0};
     int cifra;
 
@@ -44,6 +44,15 @@ array<int, 4> utilidades::obtenerNumero(int numeroUsuario) {
     }
 
     return nUsuario;
+}
+
+// Convertir un arreglo a un entero
+int utilidades::obtenerNumero(array<int, 4> arreglo) {
+    int numero = 0;
+    for (int i = 0, j = arreglo.size()-1; i < arreglo.size(); i++, j--) {
+        numero += arreglo[i] * pow(10, j);
+    }
+    return numero;
 }
 
 // Obtener las famas, comparando el número del usuario con el del programa
@@ -68,7 +77,7 @@ int utilidades::confirmarPunto(array<int, 4> nGanador, array<int, 4> nUsuario) {
     for (int i = 0; i < nGanador.size(); i++) {
         for (int j = 0; j < nUsuario.size(); j++) {
 
-            if (nGanador[i] == nUsuario[j]) {
+            if ((nGanador[i] == nUsuario[j]) && (i != j)) {
                 puntos++;
             }
         }
@@ -76,5 +85,3 @@ int utilidades::confirmarPunto(array<int, 4> nGanador, array<int, 4> nUsuario) {
 
     return puntos;
 }
-
-

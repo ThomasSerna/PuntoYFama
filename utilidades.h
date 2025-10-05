@@ -11,7 +11,8 @@ public:
 
     // Funciones logicas basicas del programa
     static array<int, 4> generarNumero();
-    static array<int, 4> obtenerNumero(int numeroUsuario);
+    static array<int, 4> obtenerArreglo(int numeroUsuario);
+    static int obtenerNumero(array<int, 4> arreglo);
     static int confirmarFama(array<int, 4> nGanador, array<int, 4> nUsuario);
     static int confirmarPunto(array<int, 4> nGanador, array<int, 4> nUsuario);
 };

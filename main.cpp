@@ -3,17 +3,18 @@
 
 using namespace std;
 
-void empezarJuego(array<int, 4> nGanador) {
+void empezarJuego(array<int, 4> nGanador, int intentosMax) {
 
     bool juegoAcabado = false;
     int nIntento, famas, puntos;
     array<int, 4> nJugador;
+    int numeroGanador = utilidades::obtenerNumero(nGanador);
     int i = 0;
 
     while (!juegoAcabado) {
         cout << "Intento " << to_string(++i) << ": ";
         cin >> nIntento;
-        nJugador = utilidades::obtenerNumero(nIntento);
+        nJugador = utilidades::obtenerArreglo(nIntento);
 
         famas = utilidades::confirmarFama(nGanador, nJugador);
         puntos = utilidades::confirmarPunto(nGanador, nJugador);
@@ -25,6 +26,13 @@ void empezarJuego(array<int, 4> nGanador) {
 
         if (famas == 4) {
             cout << "Felicidades, ganaste." << endl;
+            cout << "Te tomo " << to_string(i) << " intentos." << endl;
+            juegoAcabado = true;
+        }
+
+        if (i == intentosMax) {
+            cout << "Perdiste, ya no tienes mas intentos disponibles." << endl;
+            cout << "El numero era " << to_string(numeroGanador) << endl;
             juegoAcabado = true;
         }
 
@@ -39,6 +47,8 @@ int main() {
     int opcion = 0;
     int n = 0;
     int opcionEmpezarJuego = 0;
+    int intentos = 1000;
+    char opcionIntentos;
     array<int, 4> nGanador;
 
     while (opcion != 3) {
@@ -67,21 +77,31 @@ int main() {
                 nGanador = utilidades::generarNumero();
                 cout << "Numero generado exitosamente." << endl;
                 cout << "" << endl;
-                cout << "Comencemos el juego..." << endl;
-                cout << "" << endl;
 
-                empezarJuego(nGanador);
             } else if (opcionEmpezarJuego == 2) {
                 cout << "Escriba el número a adivinar: ";
 
                 cin >> n;
-                nGanador = utilidades::obtenerNumero(n);
-
-                empezarJuego(nGanador);
+                nGanador = utilidades::obtenerArreglo(n);
             } else {
                 cout << "" << endl;
                 cout << "Opcion invalida" << endl;
             }
+
+            cout << "Desea limitar la cantidad de intentos (S/N)";
+
+            cin >> opcionIntentos;
+
+            if (tolower(opcionIntentos) == 's') {
+                cout << "Dime la cantidad maxima de intentos para esta partida: ";
+
+                cin >> intentos;
+            }
+
+            cout << "Comencemos el juego..." << endl;
+            cout << "" << endl;
+            empezarJuego(nGanador, intentos);
+
         } else if (opcion == 2) {
             cout << "Guia del juego:" << endl;
             cout << "1. El programa puede generar un numero de 4 cifras sin repetir digitos, o puedes elegir el numero a adivinar." << endl;
