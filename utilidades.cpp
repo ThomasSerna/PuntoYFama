@@ -1,5 +1,5 @@
 //
-// Created by User on 3/10/2025.
+// Funciones logicas del programa
 //
 
 #include "utilidades.h"

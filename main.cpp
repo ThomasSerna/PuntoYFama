@@ -3,13 +3,23 @@
 
 using namespace std;
 
-void empezarJuego(array<int, 4> nGanador, int intentosMax) {
+void empezarJuego(int intentosMax, bool nAleatorio) {
 
+    array<int, 4> nGanador;
+    int n = 0;
     bool juegoAcabado = false;
     int nIntento, famas, puntos;
     array<int, 4> nJugador;
-    int numeroGanador = utilidades::obtenerNumero(nGanador);
     int i = 0;
+    int numeroGanador;
+
+    if (nAleatorio == true) {
+        nGanador = utilidades::generarNumero();
+    } else if (nAleatorio == false) {
+        cout << "Escriba el número a adivinar: ";
+        cin >> n;
+        nGanador = utilidades::obtenerArreglo(n);
+    }
 
     while (!juegoAcabado) {
         cout << "Intento " << to_string(++i) << ": ";
@@ -32,6 +42,7 @@ void empezarJuego(array<int, 4> nGanador, int intentosMax) {
 
         if (i == intentosMax) {
             cout << "Perdiste, ya no tienes mas intentos disponibles." << endl;
+            numeroGanador = utilidades::obtenerNumero(nGanador);
             cout << "El numero era " << to_string(numeroGanador) << endl;
             juegoAcabado = true;
         }
@@ -44,63 +55,33 @@ int main() {
 
     cout << "Bienvenido a punto y fama" << endl;
 
-    int opcion = 0;
-    int n = 0;
-    int opcionEmpezarJuego = 0;
-    int intentos = 1000;
-    char opcionIntentos;
-    array<int, 4> nGanador;
+    // Configuraciones del juego
+    int intentos = -1;
+    bool nGeneradoAleat = true;
 
-    while (opcion != 3) {
+    // Variables de control de menús
+    int opcion = -1;
+
+    while (opcion != 5) {
+        int opcionMenuConfig = -1;
+        char opcionAleat;
 
         cout << "" << endl;
         cout << "Menu principal" << endl;
         cout << "1. Empezar a jugar" << endl;
         cout << "2. Aprender a jugar" << endl;
-        cout << "3. Salir del programa" << endl;
+        cout << "3. Ver estadisticas de juego" << endl;
+        cout << "4. Configuracion del juego" << endl;
+        cout << "Ingresa 0 para volver al menu anterior" << endl;
         cout << "" << endl;
         cout << "Selecciona una opcion: ";
 
         cin >> opcion;
 
         if (opcion == 1) {
-            cout << "Opciones de juego:" << endl;
-            cout << "1. Deseas que el programa genere el numero aleatoriamente" << endl;
-            cout << "2. Desea que el usuario digite el numero a adivinar" << endl;
-            cout << "" << endl;
-            cout << "Selecciona una opcion: ";
-
-            cin >> opcionEmpezarJuego;
-
-            if (opcionEmpezarJuego == 1) {
-                cout << "Generando numero aleatorio de 4 cifras (sin repetir numero)" << endl;
-                nGanador = utilidades::generarNumero();
-                cout << "Numero generado exitosamente." << endl;
-                cout << "" << endl;
-
-            } else if (opcionEmpezarJuego == 2) {
-                cout << "Escriba el número a adivinar: ";
-
-                cin >> n;
-                nGanador = utilidades::obtenerArreglo(n);
-            } else {
-                cout << "" << endl;
-                cout << "Opcion invalida" << endl;
-            }
-
-            cout << "Desea limitar la cantidad de intentos (S/N)";
-
-            cin >> opcionIntentos;
-
-            if (tolower(opcionIntentos) == 's') {
-                cout << "Dime la cantidad maxima de intentos para esta partida: ";
-
-                cin >> intentos;
-            }
-
             cout << "Comencemos el juego..." << endl;
             cout << "" << endl;
-            empezarJuego(nGanador, intentos);
+            empezarJuego(intentos, nGeneradoAleat);
 
         } else if (opcion == 2) {
             cout << "Guia del juego:" << endl;
@@ -112,8 +93,51 @@ int main() {
             cout << "6. Ganas cuando obtienes 4 famas." << endl;
 
         } else if (opcion == 3) {
+            cout << "La funcion de estadisticas aun no ha sido implementada." << endl;
+
+        } else if (opcion == 4){
+
+            while (opcionMenuConfig != 0) {
+                cout << "Configuracion del juego:" << endl;
+
+                if (intentos == -1) {
+                    cout << "1. Cantidad maxima de intentos por ronda: Sin limite" << endl;
+                } else {
+                    cout << "1. Cantidad maxima de intentos por ronda: " << to_string(intentos) << endl;
+                }
+                if (nGeneradoAleat == true) {
+                    cout << "2. Numero generado aleatoriamente: Si" << endl;
+                } else if (nGeneradoAleat == false) {
+                    cout << "2. Numero generado aleatoriamente: No" << endl;
+                }
+                cout << "Ingresa 0 para volver al menu anterior" << endl;
+                cout << "" << endl;
+                cout << "Seleccione la configuracion que desee cambiar: ";
+                cin >> opcionMenuConfig;
+
+                if (opcionMenuConfig == 1) {
+                    cout << "Ingrese la cantidad maxima de intentos por ronda: ";
+                    cin >> intentos;
+                } else if (opcionMenuConfig == 2) {
+                    cout << "Desea que el numero a adivinar se genere aleatoriamente? (S/n)";
+                    cin >> opcionAleat;
+                    if (tolower(opcionAleat) == 's') {
+                        nGeneradoAleat = true;
+                    } else if (tolower(opcionAleat) == 'n') {
+                        nGeneradoAleat = false;
+                    } else {
+                        cout << "Opcion invalida" << endl;
+                    }
+                } else if (opcionMenuConfig == 0) {
+                } else {
+                    cout << "Opcion invalida" << endl;
+                }
+            }
+
+        } else if (opcion == 0) {
             cout << "" << endl;
             cout << "Saliendo del programa..." << endl;
+
         } else {
             cout << "" << endl;
             cout << "Opcion invalida" << endl;
