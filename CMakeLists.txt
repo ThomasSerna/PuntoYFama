@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(PuntoYFama main.cpp
         utilidades.cpp
         utilidades.h
+        Configuracion.cpp
+        Configuracion.h
 )

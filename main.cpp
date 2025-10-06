@@ -1,5 +1,9 @@
 #include <iostream>
+
+#include "configuracion.h"
 #include "utilidades.h"
+
+// Aún falta añadir la funcionalidad de estadisticas, para la persistencia de los datos del usuario
 
 using namespace std;
 
@@ -52,17 +56,21 @@ void empezarJuego(int intentosMax, bool nAleatorio) {
 }
 
 int main() {
+    string nombreConfig = "config.txt";
 
     cout << "Bienvenido a punto y fama" << endl;
 
-    // Configuraciones del juego
-    int intentos = -1;
-    bool nGeneradoAleat = true;
+    // Sistema de persistencia de datos para la configuración del juego
+    cout << "Cargando datos..." << endl;
+    configuracion mConfig(nombreConfig);
+    mConfig.cargarConfig();
+    int intentos = mConfig.cargarIntentos();
+    bool nGeneradoAleat = mConfig.CargarGeneradoAleat();
 
     // Variables de control de menús
     int opcion = -1;
 
-    while (opcion != 5) {
+    while (opcion != 0) {
         int opcionMenuConfig = -1;
         char opcionAleat;
 
@@ -72,7 +80,7 @@ int main() {
         cout << "2. Aprender a jugar" << endl;
         cout << "3. Ver estadisticas de juego" << endl;
         cout << "4. Configuracion del juego" << endl;
-        cout << "Ingresa 0 para volver al menu anterior" << endl;
+        cout << "Ingresa 0 para salir del programa" << endl;
         cout << "" << endl;
         cout << "Selecciona una opcion: ";
 
@@ -116,10 +124,15 @@ int main() {
                 cin >> opcionMenuConfig;
 
                 if (opcionMenuConfig == 1) {
+                    cout << "Si desea que no haya limite, escriba 0" << endl;
                     cout << "Ingrese la cantidad maxima de intentos por ronda: ";
                     cin >> intentos;
+                    if (intentos == 0) {
+                        intentos = -1;
+                    }
+
                 } else if (opcionMenuConfig == 2) {
-                    cout << "Desea que el numero a adivinar se genere aleatoriamente? (S/n)";
+                    cout << "Desea que el numero a adivinar se genere aleatoriamente? (S/N) ";
                     cin >> opcionAleat;
                     if (tolower(opcionAleat) == 's') {
                         nGeneradoAleat = true;
@@ -132,6 +145,8 @@ int main() {
                 } else {
                     cout << "Opcion invalida" << endl;
                 }
+
+                mConfig.guardarConfig(intentos, nGeneradoAleat);
             }
 
         } else if (opcion == 0) {
