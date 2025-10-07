@@ -5,8 +5,6 @@
 #include "usuario.h"
 #include "utilidades.h"
 
-// Aún falta añadir la funcionalidad de estadisticas, para la persistencia de los datos del usuario
-
 using namespace std;
 
 string nombreConfig = "config.txt";
