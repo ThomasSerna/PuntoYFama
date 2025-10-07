@@ -13,3 +13,6 @@ add_executable(PuntoYFama main.cpp
         persistenciaUsuario.cpp
         persistenciaUsuario.h
 )
+
+file(COPY ${CMAKE_SOURCE_DIR}/config.txt DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/usuarios.csv DESTINATION ${CMAKE_BINARY_DIR})
