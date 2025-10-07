@@ -36,8 +36,6 @@ void empezarJuego(int intentosMax, bool nAleatorio) {
         nGanador = utilidades::obtenerArreglo(n);
     }
 
-    cout << to_string(utilidades::obtenerNumero(nGanador)) << endl;
-
     while (!juegoAcabado) {
         cout << "Intento " << to_string(++i) << ": ";
         cin >> nIntento;
