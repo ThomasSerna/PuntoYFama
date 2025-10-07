@@ -1,11 +1,20 @@
 #include <iostream>
 
 #include "configuracion.h"
+#include "persistenciaUsuario.h"
+#include "usuario.h"
 #include "utilidades.h"
 
 // Aún falta añadir la funcionalidad de estadisticas, para la persistencia de los datos del usuario
 
 using namespace std;
+
+string nombreConfig = "config.txt";
+string nombreUsers = "usuarios.csv";
+
+configuracion mConfig(nombreConfig);
+persistenciaUsuario mUsers(nombreUsers);
+usuario jugador;
 
 void empezarJuego(int intentosMax, bool nAleatorio) {
 
@@ -17,6 +26,8 @@ void empezarJuego(int intentosMax, bool nAleatorio) {
     int i = 0;
     int numeroGanador;
 
+    char opcionVerStats;
+
     if (nAleatorio == true) {
         nGanador = utilidades::generarNumero();
     } else if (nAleatorio == false) {
@@ -24,6 +35,8 @@ void empezarJuego(int intentosMax, bool nAleatorio) {
         cin >> n;
         nGanador = utilidades::obtenerArreglo(n);
     }
+
+    cout << to_string(utilidades::obtenerNumero(nGanador)) << endl;
 
     while (!juegoAcabado) {
         cout << "Intento " << to_string(++i) << ": ";
@@ -41,6 +54,12 @@ void empezarJuego(int intentosMax, bool nAleatorio) {
         if (famas == 4) {
             cout << "Felicidades, ganaste." << endl;
             cout << "Te tomo " << to_string(i) << " intentos." << endl;
+            jugador.agregarRondaGanada(i);
+            cout << "Deseas ver tus estadisticas? (S/N) ";
+            cin >> opcionVerStats;
+            if (tolower(opcionVerStats) == 's') {
+                jugador.mostrarDatosUsuario();
+            }
             juegoAcabado = true;
         }
 
@@ -48,27 +67,39 @@ void empezarJuego(int intentosMax, bool nAleatorio) {
             cout << "Perdiste, ya no tienes mas intentos disponibles." << endl;
             numeroGanador = utilidades::obtenerNumero(nGanador);
             cout << "El numero era " << to_string(numeroGanador) << endl;
+            jugador.agregarRondaPerdida();
+            cout << "Deseas ver tus estadisticas? (S/N) ";
+            cin >> opcionVerStats;
+            if (tolower(opcionVerStats) == 's') {
+                jugador.mostrarDatosUsuario();
+            }
             juegoAcabado = true;
         }
 
     }
 
+    mUsers.guardarUsuario(jugador);
+
 }
 
 int main() {
-    string nombreConfig = "config.txt";
-
-    cout << "Bienvenido a punto y fama" << endl;
-
     // Sistema de persistencia de datos para la configuración del juego
     cout << "Cargando datos..." << endl;
-    configuracion mConfig(nombreConfig);
     mConfig.cargarConfig();
     int intentos = mConfig.cargarIntentos();
     bool nGeneradoAleat = mConfig.CargarGeneradoAleat();
 
+    // Iniciar sesion por tu nombre de usuario
+    string nombre;
+    cout << "Dame tu nombre de usuario: ";
+    cin >> nombre;
+
+    jugador = mUsers.cargarUsuarios(nombre);
+
     // Variables de control de menús
     int opcion = -1;
+
+    cout << "Bienvenido a punto y fama" << endl;
 
     while (opcion != 0) {
         int opcionMenuConfig = -1;
@@ -101,7 +132,8 @@ int main() {
             cout << "6. Ganas cuando obtienes 4 famas." << endl;
 
         } else if (opcion == 3) {
-            cout << "La funcion de estadisticas aun no ha sido implementada." << endl;
+            cout << "Tus estadisticas:" << endl;
+            jugador.mostrarDatosUsuario();
 
         } else if (opcion == 4){
 
@@ -150,11 +182,9 @@ int main() {
             }
 
         } else if (opcion == 0) {
-            cout << "" << endl;
             cout << "Saliendo del programa..." << endl;
 
         } else {
-            cout << "" << endl;
             cout << "Opcion invalida" << endl;
         }
 

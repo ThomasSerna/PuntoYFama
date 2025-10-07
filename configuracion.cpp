@@ -9,7 +9,7 @@ configuracion::configuracion(string nArchivo) {
 void configuracion::guardarConfig(int intentos, bool genAleatorio) {
     ofstream archivoGuardarConfig(nombreArchivo);
     if (!archivoGuardarConfig.is_open()) {
-        cerr << "Error: No se pudo abrir el archivo para escribir." << endl;
+        cerr << "Error: No se pudo abrir el archivo de configuraciones. (ofstream)" << endl;
     }
 
     archivoGuardarConfig << to_string(intentos) << endl;
@@ -23,7 +23,7 @@ void configuracion::cargarConfig() {
     string linea;
 
     if (!archivoCargarConfig.is_open()) {
-        cerr << "Error: No se pudo abrir el archivo para leer." << endl;
+        cerr << "Error: No se pudo abrir el archivo de configuraciones. (ifstream)" << endl;
     }
 
     while (getline(archivoCargarConfig, linea)) {

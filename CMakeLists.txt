@@ -8,4 +8,8 @@ add_executable(PuntoYFama main.cpp
         utilidades.h
         Configuracion.cpp
         Configuracion.h
+        usuario.cpp
+        usuario.h
+        persistenciaUsuario.cpp
+        persistenciaUsuario.h
 )

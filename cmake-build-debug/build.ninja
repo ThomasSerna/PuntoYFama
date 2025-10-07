@@ -70,6 +70,20 @@ build CMakeFiles/PuntoYFama.dir/Configuracion.cpp.obj: CXX_COMPILER__PuntoYFama_
   OBJECT_DIR = CMakeFiles\PuntoYFama.dir
   OBJECT_FILE_DIR = CMakeFiles\PuntoYFama.dir
 
+build CMakeFiles/PuntoYFama.dir/usuario.cpp.obj: CXX_COMPILER__PuntoYFama_unscanned_Debug C$:/Users/User/Documents/C++/PuntoYFama/usuario.cpp || cmake_object_order_depends_target_PuntoYFama
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\PuntoYFama.dir\usuario.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\PuntoYFama.dir
+  OBJECT_FILE_DIR = CMakeFiles\PuntoYFama.dir
+
+build CMakeFiles/PuntoYFama.dir/persistenciaUsuario.cpp.obj: CXX_COMPILER__PuntoYFama_unscanned_Debug C$:/Users/User/Documents/C++/PuntoYFama/persistenciaUsuario.cpp || cmake_object_order_depends_target_PuntoYFama
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\PuntoYFama.dir\persistenciaUsuario.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\PuntoYFama.dir
+  OBJECT_FILE_DIR = CMakeFiles\PuntoYFama.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PuntoYFama
@@ -78,7 +92,7 @@ build CMakeFiles/PuntoYFama.dir/Configuracion.cpp.obj: CXX_COMPILER__PuntoYFama_
 #############################################
 # Link the executable PuntoYFama.exe
 
-build PuntoYFama.exe: CXX_EXECUTABLE_LINKER__PuntoYFama_Debug CMakeFiles/PuntoYFama.dir/main.cpp.obj CMakeFiles/PuntoYFama.dir/utilidades.cpp.obj CMakeFiles/PuntoYFama.dir/Configuracion.cpp.obj
+build PuntoYFama.exe: CXX_EXECUTABLE_LINKER__PuntoYFama_Debug CMakeFiles/PuntoYFama.dir/main.cpp.obj CMakeFiles/PuntoYFama.dir/utilidades.cpp.obj CMakeFiles/PuntoYFama.dir/Configuracion.cpp.obj CMakeFiles/PuntoYFama.dir/usuario.cpp.obj CMakeFiles/PuntoYFama.dir/persistenciaUsuario.cpp.obj
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
